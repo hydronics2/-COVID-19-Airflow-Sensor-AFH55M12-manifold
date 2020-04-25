@@ -13,7 +13,22 @@ This is a quick study of using an inexpensive off-the-shelf automotive airflow t
 Reading from an automotive mass airflow sensor using a microController 12bit ADC, 20ms interval
 
 
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/step_file.PNG)
+
+[![Foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/video.PNG)](https://youtu.be/LPoZZONcg0E)
+
 ### --- Updates April 24th -- Assembled PCB, airflow sensor
+
+### Teensy pins
+ pin 0 - user led
+ pin 1 - error led
+ pin 23 - buzzer
+ pin A0 - flow sensor pin
+ pin 20 - encoder A
+ pin 21 - encoder B
+ pin 22 - encoder button
+ pin 5 - button
+
 
 
 
