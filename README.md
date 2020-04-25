@@ -15,7 +15,11 @@ Reading from an automotive mass airflow sensor using a microController 12bit ADC
 
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/step_file.PNG)
 
-[![Foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/video.PNG)](https://youtu.be/LPoZZONcg0E)
+[![Foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/video.PNG)](https://youtu.be/N4MVttKF_WM)
+
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/display_image.PNG)
+
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/pressure_graph.PNG)
 
 ### --- Updates April 24th -- Assembled PCB, airflow sensor
 

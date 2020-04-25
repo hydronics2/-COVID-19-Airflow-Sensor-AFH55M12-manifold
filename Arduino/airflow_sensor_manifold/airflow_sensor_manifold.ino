@@ -129,7 +129,7 @@ void tcaselect(uint8_t i) {
 
 void setup()  // Start of setup
 {        
-  while(!Serial){};
+  //while(!Serial){};
   Serial.begin(115200);
   analogReadResolution(12); //required for SAMD21 and teensy
   pinMode(flowSensorPin, INPUT);
