@@ -20,14 +20,14 @@ Reading from an automotive mass airflow sensor using a microController 12bit ADC
 ### --- Updates April 24th -- Assembled PCB, airflow sensor
 
 ### Teensy pins
- pin 0 - user led
- pin 1 - error led
- pin 23 - buzzer
- pin A0 - flow sensor pin
- pin 20 - encoder A
- pin 21 - encoder B
- pin 22 - encoder button
- pin 5 - button
+- pin 0 - user led
+- pin 1 - error led
+- pin 23 - buzzer
+- pin A0 - flow sensor pin
+- pin 20 - encoder A
+- pin 21 - encoder B
+- pin 22 - encoder button
+- pin 5 - button
 
 
 
