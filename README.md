@@ -3,6 +3,7 @@
 # Automotive Airflow Sensor (AFH55M12) in a manifold configuration
 
 ![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/manifold_design.PNG)
+Picture. Manifold by Patrick Campbell with Tee Fittings modified to accept airflow sensors.
 
 ## Project Description ([from Helpful Engineering](https://www.helpfulengineering.org/))
 The intent here is to create a monitoring device, based on a mass airflow meter, that can be used when splitting a ventilator into two or more patients. This will allow staff to monitor individual patients while being controlled by one device in extreme situations where the number of ventilators are not enough to handle the number of patients. The readout should be visible locally on the device and there may need to be parameters input by staff to create a safe operating range and to possibly create alarms when the system is measuring an out of range parameter.
