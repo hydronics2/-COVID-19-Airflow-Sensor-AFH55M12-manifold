@@ -2,6 +2,8 @@
 
 # Automotive Airflow Sensor (AFH55M12) in a manifold configuration
 
+![foo](https://github.com/hydronics2/COVID-19-Airflow-Sensor-AFH55M12-manifold/blob/master/pics/manifold_design.PNG)
+
 ## Project Description ([from Helpful Engineering](https://www.helpfulengineering.org/))
 The intent here is to create a monitoring device, based on a mass airflow meter, that can be used when splitting a ventilator into two or more patients. This will allow staff to monitor individual patients while being controlled by one device in extreme situations where the number of ventilators are not enough to handle the number of patients. The readout should be visible locally on the device and there may need to be parameters input by staff to create a safe operating range and to possibly create alarms when the system is measuring an out of range parameter.
 
@@ -51,5 +53,6 @@ The sensor shows up as multiple part values. It fits a 1998 Nissan/Datsun Truck 
 - Pin D Signal
 
 #### Parts List
+- microController - [Teensy 4.0](https://www.pjrc.com/store/teensy40.html)
 - display - [2.8" TFT 320x240 display](https://www.pjrc.com/store/display_ili9341_touch.html)
 - BME280 pressure sensor [828-1063-1-ND](https://www.digikey.com/product-detail/en/bosch-sensortec/BME280/828-1063-1-ND/6136314)
