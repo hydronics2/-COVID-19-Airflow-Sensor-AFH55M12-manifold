@@ -21,7 +21,7 @@ public:
 	void setMode(String title, Axis _xAxis, Axis _yAxis);
 
 	// Graphics
-	void drawGraph(SensorData * data, uint32_t now);
+	void drawGraph(SensorData * data, uint32_t now, int lastVolumeNumber);
 
 protected:
 	ILI9341_t3 * tft;
@@ -42,7 +42,9 @@ protected:
 
 	// Data
 	Axis xAxis = {low: -10.0f, high: 0.0f, inc: 2.0f};
-	Axis yAxis = {low: 0.0f, high: 20.0f, inc: 2.0f};
+	Axis yAxis = {low: 0.0f, high: 20.0f, inc: 2.0f}; 
+
+
 
 	// Colors
 	uint16_t axisColor = RED;

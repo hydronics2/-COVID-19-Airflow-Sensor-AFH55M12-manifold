@@ -30,6 +30,7 @@ void Display::setMode(String title, Axis _xAxis, Axis _yAxis)
 	xAxis = _xAxis;
 	yAxis = _yAxis;
 
+
 	// Convenient shorthand variables
 	const int16_t gx = GRAPH_X;
 	const int16_t gy = GRAPH_Y;
@@ -43,7 +44,7 @@ void Display::setMode(String title, Axis _xAxis, Axis _yAxis)
 	tft->setCursor(gx, gy - 30);
 	tft->println(title);
 
-	// Axis Values: X
+  // Axis Values: X
 	tft->fillRect(0, GRAPH_Y + GRAPH_HEIGHT + 1, tft->width(), tft->height() - (GRAPH_Y + GRAPH_HEIGHT), bgColor);	// Erase old X values
 
 	tft->setTextSize(1);
@@ -74,7 +75,7 @@ void Display::setMode(String title, Axis _xAxis, Axis _yAxis)
 
 // -- GRAPHICS --
 
-void Display::drawGraph(SensorData * data, uint32_t now)
+void Display::drawGraph(SensorData * data, uint32_t now, int lastMaxVolume)
 {
 	// Avoid shimmering pixels (rounding errors):
 	// Only redraw when +1px scrolling can happen.
@@ -108,7 +109,14 @@ void Display::drawGraph(SensorData * data, uint32_t now)
 		lastY = drawY;
 	}
 
-	tft->writeRect(GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT, graph);
+	tft->writeRect(GRAPH_X, GRAPH_Y, GRAPH_WIDTH, GRAPH_HEIGHT, graph);  
+
+  //Serial.println(lastMaxVolume);
+  tft->setTextSize(2);
+  tft->setCursor(245, 5);
+  tft->print(lastMaxVolume);
+  tft->println("mL");
+
 }
 
 // -- PROTECTED --

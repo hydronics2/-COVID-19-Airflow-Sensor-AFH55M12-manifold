@@ -32,7 +32,7 @@ unsigned long delayTime;
 void setup() {
     Serial.begin(9600);
     while(!Serial);    // time to get serial running
-    //Serial.println(F("BME280 test"));
+    Serial.println(F("BME280 test"));
 
     unsigned status;
      tcaselect(0);
@@ -41,7 +41,7 @@ void setup() {
     if (! bme1.begin(0x77, &Wire)) {
         Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
         while (1);
-    } else //Serial.println("started#1");
+    } else Serial.println("started#1");
 
      tcaselect(4);
      delay(10);
@@ -49,7 +49,7 @@ void setup() {
     if (! bme1.begin(0x77, &Wire)) {
         Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
         while (1);
-    } else //Serial.println("started#5");
+    } else Serial.println("started#5");
 
     Serial.println();
 }
@@ -57,7 +57,7 @@ void setup() {
 
 void loop() { 
     printValues();
-    //delay(1000);
+    delay(1000);
 }
 
 
@@ -65,28 +65,28 @@ void printValues() {
 
   tcaselect(0);
   delay(10);
-  //Serial.print("Temperature#1 = ");
-  //Serial.print(bme1.readTemperature());
-  //Serial.println(" *C");
-  //Serial.print("Pressure#1 = ");
-  Serial.println((bme1.readPressure() - 103125));
-  //Serial.println(" Pa");
-  //Serial.print("Humidity#1 = ");
-  //Serial.print(bme1.readHumidity());
-  //Serial.println(" %");
-  //Serial.println();
+  Serial.print("Temperature#1 = ");
+  Serial.print(bme1.readTemperature());
+  Serial.println(" *C");
+  Serial.print("Pressure#1 = ");
+  Serial.print((bme1.readPressure()));
+  Serial.println(" Pa");
+  Serial.print("Humidity#1 = ");
+  Serial.print(bme1.readHumidity());
+  Serial.println(" %");
+  Serial.println();
   
-//  delay(5);
-//  tcaselect(4);
-//  Serial.print("Temperature#5 = ");
-//  Serial.print(bme1.readTemperature());
-//  Serial.println(" *C");
-//  Serial.print("Pressure#5 = ");
-//  Serial.print(bme1.readPressure());
-//  Serial.println(" Pa");
-//  Serial.print("Humidity#5 = ");
-//  Serial.print(bme1.readHumidity());
-//  Serial.println(" %");
-//  Serial.println();
-//  Serial.println(); 
+  delay(5);
+  tcaselect(4);
+  Serial.print("Temperature#5 = ");
+  Serial.print(bme1.readTemperature());
+  Serial.println(" *C");
+  Serial.print("Pressure#5 = ");
+  Serial.print(bme1.readPressure());
+  Serial.println(" Pa");
+  Serial.print("Humidity#5 = ");
+  Serial.print(bme1.readHumidity());
+  Serial.println(" %");
+  Serial.println();
+  Serial.println(); 
 }

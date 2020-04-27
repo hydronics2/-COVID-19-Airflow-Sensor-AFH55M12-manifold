@@ -27,7 +27,7 @@
 #include "SensorData.h"
 
 Adafruit_BME280 bme1; // I2C pressure sensor under the display
-long atmosphericPressure = 101491; //this bounces around a bit
+long atmosphericPressure = 100957; //this bounces around a bit
 
 //pinouts for Teensy
 #define TFT_CS 10
@@ -43,12 +43,12 @@ const int encoderButton = 22; //teensy
 const int userButton = 5; //teensy 4.0 .. need to use pinMode(userButton, INPUT_PULLUP);
 const int flowSensorPin = A0;
 
-const float displaySeconds = 10.0f;
+const float displaySeconds = 10.0f; //was 10... 
 Display display;
 
 int flowSensorValue = 0;
 
-const int sizeBreath = 300;
+const int sizeBreath = 300; //was 300
 int arrayBreath[sizeBreath];
 int incrementBreath = 0;
 int incrementGraphExtents = 0;
@@ -59,16 +59,16 @@ long arrayVolume[sizeBreath];
 int arrayPressure[sizeBreath];
 */
 SensorData slmData(
-	"#1: SLM",
-	{low: 0.0f, high: 20.0f, inc: 2.0f}
+	"#1: SLM (L/min)",
+	{low: 0.0f, high: 75.0f, inc: 5.0f}
 );
 SensorData volumeData(
-	"#2: Volume (mL)",
-	{low: 0.0f, high: 50.0f, inc: 5.0f}
+	"#1: Volume (mL)",
+	{low: 0.0f, high: 700.0f, inc: 50.0f}
 );
 SensorData pressureData(
-	"#3: Pressure (cm)",
-	{low: 0.0f, high: 1.0f, inc: 1.0f}
+	"#1: Pressure (cm)",
+	{low: 0.0f, high: 35.0f, inc: 5.0f}
 );
 
 // Which sensor is being shown?
@@ -85,10 +85,11 @@ int senseInterval = 20;
 int updateDisplay = 40;
 long lastTimeUpdateDisplay;
 
-int flowSensorCalibration = 162; //actually number is 0.0162 converts delta ADC into SLM
+
 double timePeriod;
 
 int pressureReading1 = 0;
+int lastMaxVolume = 0;
 
 double a1, b1, c1, d1, r2, r1, vo, tempC, tempF, tempK, ox, oy;
 
@@ -160,8 +161,10 @@ void setup()  // Start of setup
 		Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
 		delay(3000);	// Try again in a few seconds
 	}
-
-  pressureReading1 = bme1.readPressure(); //ok lets take a pressure reading now that there is flow
+  
+  tcaselect(0); //switching back to #1
+  delay(5);
+  pressureReading1 = bme1.readPressure(); //ok lets take a pressure reading
   Serial.print("pressure: ");
   Serial.println(pressureReading1);
   atmosphericPressure = pressureReading1;
@@ -194,13 +197,12 @@ void loop()  // Start of loop
         Serial.print("time: ");
         Serial.print(now);
         Serial.print(" ms, SLM: ");
-        Serial.println(SLM);
+        Serial.print(SLM);
 
         float pressure = bme1.readPressure(); //ok lets take a pressure reading now that there is flow
         pressure = (pressure - atmosphericPressure)/98.07; //convert Pascals to cm of H2O
-        Serial.print("cm of H2O: ");
-        Serial.println(pressure);
-
+        Serial.print(", cm of H2O: ");
+        Serial.print(pressure);
         //arrayPressure[incrementBreath] = (int)(pressure * 100); //package as integer
 				pressureData.add(pressure, now);
 
@@ -215,8 +217,10 @@ void loop()  // Start of loop
 
 				slmData.add(SLM, now);
 
-				volumeData.add(volumeData.getLastValue() + SLM * (senseInterval + 1) * (1000.0f / 60000), now);
-
+        float volume = volumeData.getLastValue() + SLM * (senseInterval + 1) * (1000.0f / 60000);
+				volumeData.add(volume, now);
+        Serial.print(", volume (mL): ");
+        Serial.println(volume);
 				/*
         if(incrementBreath > 0)
         {
@@ -230,14 +234,14 @@ void loop()  // Start of loop
         }
 
       }
-    }else
+    }else //sensor below threshold
     {
       digitalWrite(userLED, LOW);
       digitalWrite(errorLED, LOW);
       analogWrite(buzzer, 0);
       if(breathFlag) //a breath just finished... calculate the volume
       {
-        printResults();
+        lastMaxVolume = printResults();
       }
       startBreathFlag = false;
       breathFlag = false;
@@ -273,9 +277,15 @@ void loop()  // Start of loop
 		redrawSensor();
 	}
 
+//  int lastVolumeNumber = 0;
+//  if(showSensorIndex == 1){
+//    lastVolumeNumber = volumeData.getLastValue();
+//  }
+
+  
 	// Draw graph
 	SensorData * data = sensorDatas[showSensorIndex];
-	display.drawGraph(data, now);
+	display.drawGraph(data, now, lastMaxVolume);
 }
 
 // Encoder: Interrupt Service Routine
@@ -291,7 +301,7 @@ void goToNextSensor()
 
 void redrawSensor()
 {
-	SensorData * data = sensorDatas[showSensorIndex];
+	SensorData * data = sensorDatas[showSensorIndex];  
 	float timeRange = timeRanges[showTimeRangeIndex];
 	float timeInc = timeIncs[showTimeRangeIndex];
 
@@ -301,11 +311,11 @@ void redrawSensor()
 	);
 }
 
-void printResults()
+int printResults()
 {
+  int maxVolume = volumeData.getLastValue();
   Serial.println();
-  Serial.println("average raw sensor value is currently not used in curve-fit equation... but printed here for reference");
-  Serial.print("average sensor value: ");
-  Serial.println(averageRawSensorValue);
-
+  Serial.print("Volume (mL): ");
+  Serial.println(maxVolume);
+  return maxVolume;
 }
