@@ -27,7 +27,7 @@
 #include "SensorData.h"
 
 Adafruit_BME280 bme1; // I2C pressure sensor under the display
-long atmosphericPressure = 100957; //this bounces around a bit
+long atmosphericPressure = 100167; //this bounces around a bit
 
 //pinouts for Teensy
 #define TFT_CS 10
@@ -148,7 +148,7 @@ void setup()  // Start of setup
 		delay(10);
 		if (bme1.begin(0x77, &Wire)) {
 			Serial.println("Started pressure sensor BME#1");
-			break;
+			//break;
 		}
 
 		tcaselect(4);
@@ -158,14 +158,14 @@ void setup()  // Start of setup
 			break;
 		}
 
-		Serial.println("Could not find a valid BME280 sensor, check wiring! for 0x77");
+		Serial.println("Could not find one of the BME280 sensors");
 		delay(3000);	// Try again in a few seconds
 	}
   
   tcaselect(0); //switching back to #1
   delay(5);
   pressureReading1 = bme1.readPressure(); //ok lets take a pressure reading
-  Serial.print("pressure: ");
+  Serial.print("atmospheric pressure on #1 is: ");
   Serial.println(pressureReading1);
   atmosphericPressure = pressureReading1;
 
